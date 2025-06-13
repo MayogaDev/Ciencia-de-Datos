@@ -4,37 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard de Análisis de Ofertas de Trabajo</title>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://d3js.org/topojson.v3.min.js"></script>
-    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script> 
+    <script src="https://d3js.org/topojson.v3.min.js"></script> 
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="dashboard-container">
         <!-- Sidebar -->
-        <div class="sidebar">
+        <aside class="sidebar">
             <div class="sidebar-header">
                 <h2><i class="fas fa-filter"></i> Filtros</h2>
             </div>
             <div class="sidebar-content">
                 <div class="filter-section">
-                    <h3>Tipo de Empleo</h3>
-                    <div class="filter-options" id="employment-type-filter"></div>
+                    <button class="filter-btn" id="employment-type-btn">Tipo de Empleo</button>
+                    <div id="employment-type-panel" class="filter-panel hidden"></div>
                 </div>
                 <div class="filter-section">
-                    <h3>Industria</h3>
-                    <div class="filter-options" id="industry-filter"></div>
+                    <button class="filter-btn" id="industry-btn">Industria</button>
+                    <div id="industry-panel" class="filter-panel hidden"></div>
                 </div>
                 <div class="filter-section">
-                    <h3>Ubicación</h3>
-                    <div class="filter-options" id="location-filter"></div>
+                    <button class="filter-btn" id="location-btn">Ubicación</button>
+                    <div id="location-panel" class="filter-panel hidden"></div>
                 </div>
-                <button id="reset-filters" class="reset-btn">
-                    <i class="fas fa-redo"></i> Reiniciar Filtros
-                </button>
+                <div class="filter-section">
+                    <button class="filter-btn" id="title-btn">Título</button>
+                    <div id="title-panel" class="filter-panel hidden"></div>
+                </div>
+                <div class="filter-section">
+                    <button class="filter-btn" id="salary-btn">Salario</button>
+                    <div id="salary-filter" class="filter-panel hidden"></div>
+                </div>
+                <!-- Add other filter buttons as needed -->
+                <div class="filter-section">
+                    <button id="reset-filters" class="reset-btn">
+                        <i class="fas fa-undo"></i> Reiniciar Filtros
+                    </button>
+                </div>
             </div>
-        </div>
+        </aside>
 
         <!-- Main Content -->
         <div class="main-content">
@@ -93,12 +105,56 @@
                     <h3><i class="fas fa-calendar-alt"></i> Tendencias Temporales</h3>
                     <div class="viz-container" id="temporalTrendsChart"></div>
                 </div>
+                <div class="viz-card full-width">
+                    <h3><i class="fas fa-radar"></i> Especificidad de Requisitos</h3>
+                    <div class="viz-container" id="requirementsRadarChart"></div>
+                </div>
+                <div class="viz-card" id="employment-type-viz-1" style="display: none;">
+                    <h3><i class="fas fa-briefcase"></i> Distribución de Tipo de Empleo</h3>
+                    <div id="employmentTypeBarChart" class="viz-container"></div>
+                </div>
+                <div class="viz-card" id="employment-type-viz-2" style="display: none;">
+                    <h3><i class="fas fa-briefcase"></i> Distribución de Tipo de Empleo</h3>
+                    <div id="employmentTypePieChart" class="viz-container"></div>
+                </div>
+                <div class="viz-card" id="industry-viz-1" style="display: none;">
+                    <h3>Distribución de Industria </h3>
+                    <div id="industryBarChart" class="viz-container"></div>
+                </div>
+                <div class="viz-card" id="industry-viz-2" style="display: none;">
+                    <h3>Distribución de Industria </h3>
+                    <div id="industryDonutChart" class="viz-container"></div>
+                </div>
+                <div id="location-viz-1" class="viz-card" style="display: none;">
+                    <h3>Distribución Geográfica</h3>
+                    <div id="locationBarChart"></div>
+                </div>
+                <div id="location-viz-2" class="viz-card" style="display: none;">
+                    <h3>Distribución Geográfica</h3>
+                    <div id="locationPieChart"></div>
+                </div>
+                <div class="viz-card" id="title-viz-1" style="display: none;">
+                    <h3> Distribución de Títulos</h3>
+                    <div id="titleBarChart"></div>
+                </div>
+                <div class="viz-card" id="title-viz-2" style="display: none;">
+                    <h3> Nube de Palabras de Títulos</h3>
+                    <div id="titleWordCloud"></div>
+                </div>
+                <div class="viz-card" id="salary-viz-1" style="display: none;">
+                    <h3><i class="fas fa-chart-box"></i> Distribución de Salarios</h3>
+                    <div id="salaryBoxPlot" class="viz-container"></div>
+                </div>
+                <div class="viz-card" id="salary-viz-2" style="display: none;">
+                    <h3><i class="fas fa-chart-area"></i> Densidad de Salarios</h3>
+                    <div id="salaryDensityHeatmap" class="viz-container"></div>
+                </div>
             </section>
         </div>
     </div>
 
     <div id="tooltip" class="hidden"></div>
-
+    <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/visualizations.js"></script>
     <script src="js/filters.js"></script>
