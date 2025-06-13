@@ -17,7 +17,7 @@
 }
 
 body {
-    background-color: #f5f7fa;
+    background-color: #3498db;
     color: #333;
 }
 
@@ -29,7 +29,7 @@ body {
 /* Sidebar Styles */
 .sidebar {
     width: var(--sidebar-width);
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px 0;
     position: fixed;
@@ -299,3 +299,140 @@ body {
         padding: 20px 15px;
     }
 }
+
+/* Añadir estos estilos al final del archivo */
+
+/* Estilos para los filtros desplegables */
+.filter-dropdown {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.select2-container {
+    width: 100% !important;
+    margin-bottom: 15px;
+}
+
+.select2-selection--multiple {
+    border: 1px solid #ddd !important;
+    border-radius: 4px !important;
+    min-height: 38px !important;
+}
+
+.select2-selection__choice {
+    background-color: #e0e0e0 !important;
+    border: none !important;
+    border-radius: 4px !important;
+    padding: 2px 8px !important;
+    font-size: 0.8rem !important;
+}
+
+.select2-selection__choice__remove {
+    margin-right: 4px !important;
+    color: #666 !important;
+}
+
+/* Estilos para el filtro de rango de salario */
+.salary-range-container {
+    margin-top: 10px;
+}
+
+.salary-values {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    color: var(--dark-color);
+}
+
+.slider-container {
+    padding: 0 5px;
+}
+
+#salary-range {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: #ddd;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+#salary-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+}
+
+#salary-range::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    border: none;
+}
+
+/* Mejoras para el sidebar */
+.sidebar-content {
+    padding-bottom: 20px;
+    max-height: calc(100vh - 200px); /* Adjust based on header and reset button height */
+    overflow-y: auto;
+}
+
+/* Filter Button Styles */
+.filter-btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-bottom: 10px;
+}
+
+.filter-btn:hover {
+    background-color: #2980b9;
+}
+
+.filter-panel {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filter-panel.hidden {
+    display: none;
+}
+
+.filter-panel-btn {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.filter-panel-btn.selected {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.filter-panel-btn:hover {
+    background-color: #f0f0f0;
+}
+
